@@ -1,0 +1,16 @@
+<html>
+    <head>
+      <title>PyTorch Image Classification</title>
+    </head>
+    <body>
+      <h1>PyTorch Image Classification</h1>
+      <form method="POST" action="/predict">
+        {{ form.hidden_tag() }}
+        <p>
+          {{ form.image.label }}<br>
+          {{ form.image(size=32) }}
+        </p>
+        <p>{{ form.submit() }}</p>
+      </form>
+    </body>
+  </html>
