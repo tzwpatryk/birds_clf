@@ -8,10 +8,17 @@ import torch.nn as nn
 import torch.nn.functional as F
 from torchvision import transforms, models
 
+if torch.backends.mps.is_available():
+    device = torch.device("mps")
+elif torch.cuda.is_available():
+    device = torch.device("cuda")
+else:
+    device = torch.device("cpu")
+
 model = models.mobilenet_v2()
 num_ftrs = model.classifier[1].in_features
 model.classifier[1] = nn.Linear(num_ftrs, 25)
-model.load_state_dict(torch.load('models/mbnet.pth'))
+model.load_state_dict(torch.load('models/mbnet.pth', map_location=device))
 model.eval()
 
 classes = {0: 'Asian Green Bee-Eater',
